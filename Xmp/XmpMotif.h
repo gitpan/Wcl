@@ -23,8 +23,8 @@
 #include <Xm/FileSB.h>
 #include <Xm/Form.h>
 #include <Xm/Frame.h>
-#if (defined(XmVERSION) && XmVERSION > 1)
-/* Motif 2.0 */
+#if (XmVERSION >= 2)
+/* Motif 2.0 or greater */
 #include <Xm/IconG.h>
 #include <Xm/IconH.h>
 #endif
@@ -46,26 +46,31 @@
 #include <Xm/SeparatoG.h>
 #include <Xm/Separator.h>
 #include <Xm/Text.h>
-#if (defined(XmVERSION) && XmVERSION > 1)
-/* Motif 2.0 */
+#if (XmVERSION >= 2)
+/* Motif 2.0 or greater */
+#if (XmVERSION == 2) && (XmREVISION < 1)
+/* Motif 2.0 only */
 #include <Xm/CSText.h>
+#endif
 #endif
 #ifndef _OLD_MOTIF
 #include <Xm/TextF.h>
 #endif
 #include <Xm/ToggleB.h>
 #include <Xm/ToggleBG.h>
-#if (defined(XmVERSION) && XmVERSION > 1)
-/* Motif 2.0 */
+#if (XmVERSION >= 2)
+/* Motif 2.0 or greater */
 #include <Xm/TearOffBP.h>
-#endif
-#if (defined(XmVERSION) && XmVERSION > 1)
-/* Motif 2.0 */
 #include <Xm/ComboBox.h>
 #include <Xm/Container.h>
 #include <Xm/Notebook.h>
 #include <Xm/SpinB.h>
 #include <Xm/GrabShell.h>
+#if (XmVERSION > 2) || (XmREVISION >= 1)
+/* Motif 2.1 or greater */
+#include <Xm/SSpinB.h>
+#include <Xm/Print.h>
+#endif
 #endif
 
 #include <X11/Xmp/Table.h>

@@ -1,0 +1,34 @@
+#!/bin/ksh
+#
+# try to find Motif symbols that are in system headers but not in Wcl
+#
+# written for RedHat 5.0 linux
+#
+
+symbols()
+{
+	(
+		cd "$1" &&
+		gfind -type f ! -name 'CSText*' |
+		xargs cat |
+		tr -cs 'a-zA-Z0-9_' '[\n*]' |
+		sort -u
+	)
+}
+
+while read DIR OUT; do
+	symbols $DIR >$OUT
+
+	gegrep '^XmCreate' $OUT >$OUT.create
+	gegrep -v '^XmCreate' $OUT |
+		sort -o $OUT
+
+	gegrep 'xm.*(Widget|Gadget)Class$' $OUT >$OUT.class
+	gegrep -v 'xm.*(Widget|Gadget)Class$' $OUT |
+		sort -o $OUT
+
+	mv $OUT $OUT.other
+done <<-EOF
+	/usr/X11R6/include/Xm	temp.need
+	Xmp						temp.have
+EOF

@@ -519,7 +519,9 @@ static void TestRegisterApplication ( app )
 static char* SysErrorMsg(n)
     int n;
 {
+#ifndef __GLIBC__
     extern char *sys_errlist[];
+#endif
     extern int sys_nerr;
     char *s = ((n >= 0 && n < sys_nerr) ? sys_errlist[n] : "unknown error");
 

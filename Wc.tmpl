@@ -331,12 +331,18 @@ EXTRA_INCLUDES = -I$(WCTOPDIR)
     APPDEF_DEF =
 
 #define NormalLibWc  ForceNormalLibs
+#ifdef NormalLibXp
+#undef NormalLibXp
+#endif
 #define NormalLibXp  ForceNormalLibs
 #define NormalLibXmp ForceNormalLibs
 #define NormalLibMisc ForceNormalLibs
 #define NormalLibXop ForceNormalLibs
 
 #define DebugLibWc  MakeDebugLibs
+#ifdef DebugLibXp
+#undef DebugLibXp
+#endif
 #define DebugLibXp  MakeDebugLibs
 #define DebugLibXmp MakeDebugLibs
 #define DebugLibMisc MakeDebugLibs
@@ -357,6 +363,9 @@ EXTRA_INCLUDES = -I$(WCTOPDIR)
 #endif
 
 #define ProfileLibWc  MakeProfileLibs
+#ifdef ProfileLibXp
+#undef ProfileLibXp
+#endif
 #define ProfileLibXp  MakeProfileLibs
 #define ProfileLibXmp MakeProfileLibs
 #define ProfileLibMisc MakeProfileLibs

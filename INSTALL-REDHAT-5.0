@@ -1,0 +1,21 @@
+#!/bin/ksh
+#
+# Install Wcl-2.7.3 under Redhat 5.0 linux.
+#
+
+xmkmf &&
+make \
+	BUILDINCDIR=$(pwd)/X11 \
+	BUILDINCTOP=$(pwd)/X11 \
+	XMLIB="-lXm -lXp" \
+	World &&
+make \
+	BINDIR=bin \
+	BUILDINCDIR=$(pwd)/X11 \
+	BUILDINCTOP=$(pwd)/X11 \
+	DESTDIR=/usr/local/ \
+	INCDIR=include/X11 \
+	MANPATH=man \
+	USRLIBDIR=lib \
+	XMLIB="-lXm -lXp" \
+	install

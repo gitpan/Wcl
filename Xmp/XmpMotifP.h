@@ -28,8 +28,8 @@
 #include <Xm/CascadeBGP.h>
 #include <Xm/PushBGP.h>
 #include <Xm/ToggleBGP.h>
-#if (defined(XmVERSION) && XmVERSION > 1)
-/* Motif 2.0 */
+#if (XmVERSION >= 2)
+/* Motif 2.0 or greater */
 #include <Xm/IconGP.h>
 #endif
 
@@ -40,8 +40,8 @@
 #include <Xm/ScrollBarP.h>
 #include <Xm/SeparatorP.h>
 #include <Xm/TextP.h>
-#if (defined(XmVERSION) && XmVERSION > 1)
-/* Motif 2.0 */
+#if (XmVERSION == 2) && (XmREVISION < 1)
+/* Motif 2.0 only */
 #include <Xm/CSTextP.h>
 #endif
 
@@ -61,8 +61,8 @@
 #include <Xm/DrawnBP.h>
 #include <Xm/PushBP.h>
 #include <Xm/ToggleBP.h>
-#if (defined(XmVERSION) && XmVERSION > 1)
-/* Motif 2.0 */
+#if (XmVERSION >= 2)
+/* Motif 2.0 or later */
 #include <Xm/TearOffBP.h>
 #endif
 
@@ -84,12 +84,16 @@
 #include <Xm/FileSB.h>
 #endif
 #include <Xm/FileSBP.h>
-#if (defined(XmVERSION) && XmVERSION > 1)
-/* Motif 2.0 */
+#if (XmVERSION >= 2)
+/* Motif 2.0 or later */
 #include <Xm/ComboBoxP.h>
 #include <Xm/ContainerP.h>
 #include <Xm/NotebookP.h>
 #include <Xm/SpinBP.h>
+#if (XmVERSION > 2) || (XmREVISION >= 1)
+/* Motif 2.1 or greater */
+#include <Xm/SashP.h>
+#endif
 #endif
 
 /* Shell Subclasses

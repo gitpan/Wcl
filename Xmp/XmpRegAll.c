@@ -102,7 +102,8 @@ void XmpRegisterMotif ( app )
  RCO( "XmCreateFormDialog",		XmCreateFormDialog		);
  RCO( "XmCreateFrame",			XmCreateFrame			);
  RCO( "XmCreateInformationDialog",	XmCreateInformationDialog	);
-#if (defined(XmVERSION) && XmVERSION > 1) || (defined(XmREVISION) && XmREVISION >= 2)
+#if (XmVERSION >= 2) || (XmREVISION >= 2)
+ /* Motif 1.2 or later */
  RCO( "XmCreateTemplateDialog",		XmCreateTemplateDialog		);
 #endif
  RCO( "XmCreateLabel",			XmCreateLabel			);
@@ -143,12 +144,15 @@ void XmpRegisterMotif ( app )
  RCO( "XmCreateToggleButtonGadget",	XmCreateToggleButtonGadget	);
  RCO( "XmCreateWarningDialog",		XmCreateWarningDialog		);
  RCO( "XmCreateWorkingDialog",		XmCreateWorkingDialog		);
-#if (defined(XmVERSION) && XmVERSION > 1)
- /* Motif 2.0 */
+#if (XmVERSION >= 2)
+ /* Motif 2.0 or later */
  RCO( "XmCreateComboBox",			XmCreateComboBox			);
  RCO( "XmCreateCommandDialog",		XmCreateCommandDialog		);
  RCO( "XmCreateContainer",			XmCreateContainer			);
+#if (XmVERSION == 2) && (XmREVISION < 1)
+ /* Motif 2.0 only */
  RCO( "XmCreateCSText",				XmCreateCSText				);
+#endif
  RCO( "XmCreateDragIcon",			XmCreateDragIcon			);
  RCO( "XmCreateDropDownComboBox",	XmCreateDropDownComboBox	);
  RCO( "XmCreateDropDownList",		XmCreateDropDownList		);
@@ -156,7 +160,10 @@ void XmpRegisterMotif ( app )
  RCO( "XmCreateIconGadget",			XmCreateIconGadget			);
  RCO( "XmCreateIconHeader",			XmCreateIconHeader			);
  RCO( "XmCreateNotebook",			XmCreateNotebook			);
+#if (XmVERSION == 2) && (XmREVISION < 1)
+ /* Motif 2.0 only */
  RCO( "XmCreateScrolledCSText",		XmCreateScrolledCSText		);
+#endif
  RCO( "XmCreateSimpleCheckBox",		XmCreateSimpleCheckBox		);
  RCO( "XmCreateSimpleMenuBar",		XmCreateSimpleMenuBar		);
  RCO( "XmCreateSimpleOptionMenu",	XmCreateSimpleOptionMenu	);
@@ -240,8 +247,8 @@ void XmpRegisterMotif ( app )
  RCP("XmToggleButton",			xmToggleButtonWidgetClass	);
  RCP("xmToggleButtonGadgetClass",	xmToggleButtonGadgetClass	);
  RCP("XmToggleButtonGadget",		xmToggleButtonGadgetClass	);
-#if (defined(XmVERSION) && XmVERSION > 1)
- /* Motif 2.0 */
+#if (XmVERSION >= 2)
+ /* Motif 2.0 or later */
 #if 0
  RCP("xmClipWindowWidgetClass",		xmClipWindowWidgetClass		);
  RCP("XmClipWindow",				xmClipWindowWidgetClass		);
@@ -250,8 +257,11 @@ void XmpRegisterMotif ( app )
  RCP("XmComboBox",					xmComboBoxWidgetClass		);
  RCP("xmContainerWidgetClass",		xmContainerWidgetClass		);
  RCP("XmContainer",					xmContainerWidgetClass		);
+#if (XmVERSION == 2) && (XmREVISION < 1)
+ /* Motif 2.0 only */
  RCP("xmCSTextWidgetClass",			xmCSTextWidgetClass			);
  RCP("XmCSText",					xmCSTextWidgetClass			);
+#endif
  RCP("xmDragOverShellWidgetClass",	xmDragOverShellWidgetClass	);
  RCP("XmDragOverShell",				xmDragOverShellWidgetClass	);
  RCP("xmGrabShellWidgetClass",		xmGrabShellWidgetClass		);
@@ -267,5 +277,16 @@ void XmpRegisterMotif ( app )
 #if 0
  RCP("XmVendorShellWidgetClass",	XmVendorShellWidgetClass	);
 #endif
+#endif
+#if (XmVERSION > 2) || ((XmVERSION == 2) && (XmREVISION >= 1))
+ /* Motif 2.1 or later */
+ RCP("xmPrintShellWidgetClass",     xmPrintShellWidgetClass     );
+ RCP("XmPrintShell",                xmPrintShellWidgetClass     );
+#if 0
+ RCP("xmSashWidgetClass",           xmSashWidgetClass           );
+ RCP("XmSashWidget",                xmSashWidgetClass           );
+#endif
+ RCP("xmSimpleSpinBoxWidgetClass",  xmSimpleSpinBoxWidgetClass  );
+ RCP("XmSimpleSpinBox",             xmSimpleSpinBoxWidgetClass  );
 #endif
 }
