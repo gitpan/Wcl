@@ -1,0 +1,14 @@
+#!/bin/ksh
+#
+# Install Wcl-2.7.2 under Redhat 4.2 linux.
+#
+
+xmkmf &&
+make World &&
+make \
+	DESTDIR=/usr/local/ \
+	USRLIBDIR=lib \
+	INCDIR=include/X11 \
+	MANPATH=man \
+	BINDIR=bin \
+	install

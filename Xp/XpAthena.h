@@ -42,7 +42,7 @@
 #include <X11/Xaw/Scrollbar.h>
 #include <X11/Xaw/StripChart.h>
 #include <X11/Xaw/Text.h>
-#ifdef R5
+#if (defined(R5) || defined(R6))
 #include <X11/Xaw/Panner.h>
 #endif /*R5*/
 
@@ -52,7 +52,7 @@
 #include <X11/Xaw/Toggle.h>
 
 /* Command */
-#ifdef R5
+#if (defined(R5) || defined(R6))
 #include <X11/Xaw/Repeater.h>
 #endif
 
@@ -74,7 +74,7 @@
 #include <X11/Xaw/Box.h>
 #include <X11/Xaw/Form.h>
 #include <X11/Xaw/Paned.h>
-#ifdef R5
+#if (defined(R5) || defined(R6))
 #include <X11/Xaw/Porthole.h>
 #include <X11/Xaw/Tree.h>
 #endif /*R5*/
@@ -85,5 +85,6 @@
 #include <X11/Xaw/Viewport.h>
 
 #undef R5
+#undef R6
 
 #endif /* _XpAthena_h_ */

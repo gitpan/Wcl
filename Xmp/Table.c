@@ -1989,9 +1989,9 @@ void XmpTableSetGeometryOfChildren( tw )
 #else
 	    _XmMoveObject( (RectObj)(loc->w), x, y );
 #endif
+	}
 
 #endif /* end of Motif 1.x code */
-	}
     }
 }
 

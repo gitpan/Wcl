@@ -28,6 +28,10 @@
 #include <Xm/CascadeBGP.h>
 #include <Xm/PushBGP.h>
 #include <Xm/ToggleBGP.h>
+#if (defined(XmVERSION) && XmVERSION > 1)
+/* Motif 2.0 */
+#include <Xm/IconGP.h>
+#endif
 
 /* XmPrimitive Subclasses
 */
@@ -36,6 +40,10 @@
 #include <Xm/ScrollBarP.h>
 #include <Xm/SeparatorP.h>
 #include <Xm/TextP.h>
+#if (defined(XmVERSION) && XmVERSION > 1)
+/* Motif 2.0 */
+#include <Xm/CSTextP.h>
+#endif
 
 /* TextField: Motif 1.0 doesn't have them, the TextFP.h collides with TextP.h,
  * and they are useless anyway.  Nevertheless, at least get TextF.h if there.
@@ -53,6 +61,10 @@
 #include <Xm/DrawnBP.h>
 #include <Xm/PushBP.h>
 #include <Xm/ToggleBP.h>
+#if (defined(XmVERSION) && XmVERSION > 1)
+/* Motif 2.0 */
+#include <Xm/TearOffBP.h>
+#endif
 
 /* XmManager Subclasses
 */
@@ -72,6 +84,13 @@
 #include <Xm/FileSB.h>
 #endif
 #include <Xm/FileSBP.h>
+#if (defined(XmVERSION) && XmVERSION > 1)
+/* Motif 2.0 */
+#include <Xm/ComboBoxP.h>
+#include <Xm/ContainerP.h>
+#include <Xm/NotebookP.h>
+#include <Xm/SpinBP.h>
+#endif
 
 /* Shell Subclasses
 */

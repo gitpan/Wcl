@@ -1,0 +1,93 @@
+XCOMM Imakefile for widget demo programs
+
+#ifdef LinuxArchitecture
+    CC = gcc
+    EXTRA_DEFINES = -g -Wall
+    CDEBUGFLAGS = -m486
+XCOMM    LOCALMOTIF = -L/home/rob/src/lesstif/libXm 
+#endif
+#ifdef AIXArchitecture
+    CC = c89
+    EXTRA_DEFINES = -g
+    CDEBUGFLAGS = 
+XCOMM    LOCALMOTIF = -L/msi/home/rob/src/lesstif/libXm 
+#endif
+#ifdef AlphaArchitecture
+    CC = cc -std1
+#endif
+
+MOTIFDEPS = $(DEPXMLIB) $(DEPXTOOLLIB) $(DEPXLIB)
+MOTIFLIBS = $(LOCALMOTIF) -lXm $(XTOOLLIB) $(XLIB)
+SYS_LIBRARIES =
+XCOMM EXTRA_INCLUDES = -I../lesstif/include
+
+WIDGET = ListTree
+PROGRAMS = demo #fsdemo
+TARFILE = listtree
+
+SRCS = ListTree.c demo.c
+HDRS = ListTree.h ListTreeP.h patchlevel.h
+OBJS = $(SRCS:.c=.o)
+SRC2 = ListTree.c Directory.c TreeFSel.c fsel.c
+HDR2 = TreeFSel.h TreeFSelP.h Directory.h
+OBJ2 = $(SRC2:.c=.o)
+
+DOCS = ListTree. ListTreeProg.
+HOBJS = $(DOCS:.=.html)
+HSRCS = $(DOCS:.=.hdoc)
+
+INFOFILES = CHANGES LICENSE README Makefile Makefile.noImake Imakefile
+
+MANPAGES = $(INFOFILES) $(HOBJS) *.gif
+
+VERSION = $(SRCS) $(HDRS) $(MANPAGES)
+TARFILES = $(VERSION) $(HSRCS)
+
+XCOMM ##########################################################################
+XCOMM Definitions for generating the documentation
+HDOC = ~/public_html/hdoc
+.SUFFIXES:	.html .hdoc
+.hdoc.html:
+	$(HDOC) $*.hdoc > $*.html
+
+
+AllTarget(stuff)
+
+NormalProgramTarget(demo,$(OBJS),$(MOTIFDEPS),$(MOTIFLIBS),$(SYS_LIBRARIES))
+NormalProgramTarget(demo-athena,$(OBJS),$(ATHENADEPS),$(ATHENALIBS),$(SYS_LIBRARIES))
+NormalProgramTarget(fsdemo,$(OBJ2),$(ATHENADEPS),$(ATHENALIBS),$(SYS_LIBRARIES))
+
+stuff:	demo #athena
+
+doc:	$(HOBJS) $(HDOC)
+	@echo "Updated html."
+
+athena:
+	$(RM) $(OBJS)
+	$(MAKE) 'DEFINES=-DATHENA' demo-athena
+	$(MV) demo-athena demo
+
+motif:
+	$(RM) $(OBJS)
+	$(MAKE) 'DEFINES=-DMOTIF' demo-motif doc
+	$(MV) demo-motif demo
+
+clean::
+	$(RM) $(PROGRAMS) $(OBJS)
+
+version:
+	-@STUFF=../$(WIDGET)-`fgrep _WIDGET_VERSION $(WIDGET).h|cut -f2`;\
+	echo Making version directory $$STUFF ;\
+	mkdir $$STUFF ;\
+	cp $(VERSION) $$STUFF ;\
+	ls -l $$STUFF
+
+tar:
+	rm -f $(TARFILE).tar $(TARFILE).tar.gz
+	tar cfv $(TARFILE).tar $(TARFILES)
+	gzip $(TARFILE).tar
+
+taz:	$(SRCS)
+	rm -f $(TARFILE).tar $(TARFILE).tar.gz
+	tar cfv $(TARFILE).tar $(TARFILES)
+	compress $(TARFILE).tar

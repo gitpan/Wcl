@@ -53,6 +53,42 @@ static void WcxLoadWarnUnreadable _(( Widget, char* name, char* filename ));
 static void WcxLoadWarnTooLong _(( Widget, char* name, char* path, char* file));
 static void WcxLoadWarnMalloc _(( Widget, char* name ));
 
+/* Override the Default Resource Fetching Function
+*******************************************************************************
+    Argument is a pointer to a function that is used instead of the
+    Wcl default, when fetching resource files.
+    The previous saved function pointer is returned.
+*/
+
+static WcDatabaseFunction WcGetFileDatabaseFunction;
+
+WcDatabaseFunction WcSetDatabaseFunction( func )
+    WcDatabaseFunction func;
+{
+	WcDatabaseFunction old_value = WcGetFileDatabaseFunction;
+	WcGetFileDatabaseFunction = func;
+	return(old_value);
+}
+
+/* Make Resource Database from a File
+*******************************************************************************
+    Argument is name of file to build database from.
+    Return value is X resource database created from the file.
+    The default behavior is to use XrmGetFileDatabase(), but this can
+    be overridden by calling WcSetDatabaseFunction() with a pointer to
+	a function that the user has written himself.
+*/
+
+static XrmDatabase WcGetFileDatabase( filename )
+    char *filename;
+{
+	if (WcGetFileDatabaseFunction) {
+		return((*WcGetFileDatabaseFunction)(filename));
+	} else {
+		return(XrmGetFileDatabase(filename));
+	}
+}
+
 /* Find Home Directory
 *******************************************************************************
     Used by WcLoadResourceFile and WcUserDefined.
@@ -245,7 +281,7 @@ static int WcxLoadFileFromCurrentDirectory( w, name, dbPointer )
     char*        name;
     XrmDatabase* dbPointer;
 {
-    XrmDatabase rdb = XrmGetFileDatabase( name );
+    XrmDatabase rdb = WcGetFileDatabase( name );
 
     if ( (XrmDatabase)0 != rdb )
     {
@@ -297,7 +333,7 @@ static int WcxLoadFileUsingTildaPathname( w, name, dbPointer )
     WcStrCpy( path, homeDir );
     WcStrCat( path, from );
 
-    if ( (XrmDatabase)0 != (rdb = XrmGetFileDatabase( path )) )
+    if ( (XrmDatabase)0 != (rdb = WcGetFileDatabase( path )) )
     {
 	XrmMergeDatabases( rdb, dbPointer );
 	WcxLoadTrace( path );
@@ -326,7 +362,7 @@ static int WcxLoadSystemFile( w, name, dbPointer )
 					NULL, 0, NULL );
     if ( WcNonNull( filename ) )
     {
-	XrmDatabase rdb = XrmGetFileDatabase( filename );
+	XrmDatabase rdb = WcGetFileDatabase( filename );
 	XrmMergeDatabases( rdb, dbPointer );
 	WcxLoadTrace( filename );
 	XtFree( filename );
@@ -360,7 +396,7 @@ static int WcxLoadSystemFile( w, name, dbPointer )
     WcStrCat( filename, "/" );
     WcStrCat( filename, name );
 
-    if ( (XrmDatabase)0 != (rdb = XrmGetFileDatabase(filename)) )
+    if ( (XrmDatabase)0 != (rdb = WcGetFileDatabase(filename)) )
     {
 	XrmMergeDatabases( rdb, dbPointer );
 	WcxLoadTrace( filename );
@@ -460,7 +496,7 @@ static int WcxLoadUserFile( w, name, dbPointer )
 
     if ( WcNonNull(filename) )
     {
-	XrmDatabase rdb = XrmGetFileDatabase( filename );
+	XrmDatabase rdb = WcGetFileDatabase( filename );
 	XrmMergeDatabases( rdb, dbPointer );
 	WcxLoadTrace( filename );
 	XtFree( filename );
@@ -492,7 +528,7 @@ static int WcxLoadUserFile( w, name, dbPointer )
 	WcStrCpy( filename, xApplResDir );
 	WcStrCat( filename, name );
 
-	if ( (XrmDatabase)0 != ( rdb = XrmGetFileDatabase( filename ) ) )
+	if ( (XrmDatabase)0 != ( rdb = WcGetFileDatabase( filename ) ) )
 	{
 	    XrmMergeDatabases( rdb, dbPointer );
 	    WcxLoadTrace( filename );
@@ -513,7 +549,7 @@ static int WcxLoadUserFile( w, name, dbPointer )
     WcStrCat( filename, "/" );
     WcStrCat( filename, name );
 
-    if ( (XrmDatabase)0 != ( rdb = XrmGetFileDatabase( filename ) ) )
+    if ( (XrmDatabase)0 != ( rdb = WcGetFileDatabase( filename ) ) )
 
     {
 	XrmMergeDatabases( rdb, dbPointer );

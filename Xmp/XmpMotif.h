@@ -23,6 +23,11 @@
 #include <Xm/FileSB.h>
 #include <Xm/Form.h>
 #include <Xm/Frame.h>
+#if (defined(XmVERSION) && XmVERSION > 1)
+/* Motif 2.0 */
+#include <Xm/IconG.h>
+#include <Xm/IconH.h>
+#endif
 #include <Xm/Label.h>
 #include <Xm/LabelG.h>
 #include <Xm/List.h>
@@ -41,11 +46,27 @@
 #include <Xm/SeparatoG.h>
 #include <Xm/Separator.h>
 #include <Xm/Text.h>
+#if (defined(XmVERSION) && XmVERSION > 1)
+/* Motif 2.0 */
+#include <Xm/CSText.h>
+#endif
 #ifndef _OLD_MOTIF
 #include <Xm/TextF.h>
 #endif
 #include <Xm/ToggleB.h>
 #include <Xm/ToggleBG.h>
+#if (defined(XmVERSION) && XmVERSION > 1)
+/* Motif 2.0 */
+#include <Xm/TearOffBP.h>
+#endif
+#if (defined(XmVERSION) && XmVERSION > 1)
+/* Motif 2.0 */
+#include <Xm/ComboBox.h>
+#include <Xm/Container.h>
+#include <Xm/Notebook.h>
+#include <Xm/SpinB.h>
+#include <Xm/GrabShell.h>
+#endif
 
 #include <X11/Xmp/Table.h>
 

@@ -1,4 +1,4 @@
-#include <X11/Wc/COPY_X>
+#include <X11/Wc/COPY_X.h>
 
 /*
 * SCCS_data: @(#) XtName.c 1.4 92/03/18 11:02:30

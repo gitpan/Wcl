@@ -34,15 +34,26 @@ XCOMM###########################################################################
 ** 40 = X11R4 where XtNameToWidget barfs on Gadgets (early patch levels)
 ** 41 = X11R4 with fixed XtNameToWidget
 ** 50 = X11R5
+** 60 = X11R6
 */
+
+#ifdef LinuxArchitecture
+#define XRelease 60
+#else
 #define XRelease 50
+#endif
 
 /******************************************************************************
 ** Which flavors of libraries do you need?  Shared library systems by default
 ** do not build normal libraries, so you must ask for them if you need them.
 */
+#ifdef LinuxArchitecture
+#define ForceNormalLibs NO
+#define MakeDebugLibs   NO
+#else
 #define ForceNormalLibs YES
 #define MakeDebugLibs   YES
+#endif
 #define MakeProfileLibs NO
 #define HasSharedLibraries YES
 
@@ -70,6 +81,7 @@ XCOMM###########################################################################
 */
 #define XpLibraryOptions
 #define XmpLibraryOptions -D_NO_PROTO
+#define MiscLibraryOptions -D_NO_PROTO
 #define XopLibraryOptions -I/usr/openwin/include -I/usr/openwin/include/Xol
 #define DebugClientOptions -g -DASSERTIONS
 
@@ -99,7 +111,7 @@ XCOMM###########################################################################
 ** dlopen() and dlsym() and the macro RTLD_LAZY then you can use some
 ** wizzy dynamic linking stuff.  Unfortunately, gcc does not support this.
 */
-#if defined(SVR4) || defined(SunArchitecture) || defined(OSF1) && !HasGcc && !MakeProfileLibs
+#if defined(SVR4) || defined(SunArchitecture) || defined(OSF1) && !HasGcc && !MakeProfileLibs || defined(LinuxArchitecture)
 #if HasSharedLibraries
 #define Has_dlopen_And_dlsym YES
 #endif
@@ -277,7 +289,7 @@ DEBUGXLIB = $(DEBUGXEXTLIB) -lX11
 /******************************************************************************
 ** gcc shared libraries do NOT seem to work.
 */
-#if HasGcc
+#if HasGcc && !defined(LinuxArchitecture)
 #undef HasSharedLibraries
 #define HasSharedLibraries NO
 #undef Has_dlopen_And_dlsym
@@ -312,6 +324,8 @@ EXTRA_INCLUDES = -I$(WCTOPDIR)
       XPLDFLAG = -L$(WCTOPDIR)/Xp
         XMPLIB = -lXmp
      XMPLDFLAG = -L$(WCTOPDIR)/Xmp
+        MISCLIB = -lMisc
+     MISCLDFLAG = -L$(WCTOPDIR)/Misc
         XOPLIB = -lXop
      XOPLDFLAG = -L$(WCTOPDIR)/Xop
     APPDEF_DEF =
@@ -319,28 +333,33 @@ EXTRA_INCLUDES = -I$(WCTOPDIR)
 #define NormalLibWc  ForceNormalLibs
 #define NormalLibXp  ForceNormalLibs
 #define NormalLibXmp ForceNormalLibs
+#define NormalLibMisc ForceNormalLibs
 #define NormalLibXop ForceNormalLibs
 
 #define DebugLibWc  MakeDebugLibs
 #define DebugLibXp  MakeDebugLibs
 #define DebugLibXmp MakeDebugLibs
+#define DebugLibMisc MakeDebugLibs
 #define DebugLibXop MakeDebugLibs
 
 #if MakeDebugLibs
     DEBUGWCLIB = -lWc$(DLX) $(DYNLIB)
     DEBUGXPLIB = -lXp$(DLX)
    DEBUGXMPLIB = -lXmp$(DLX)
+   DEBUGMISCLIB = -lMisc$(DLX)
    DEBUGXOPLIB = -lXop$(DLX)
 #else
     DEBUGWCLIB = $(WCLIB)
     DEBUGXPLIB = $(XPLIB)
    DEBUGXMPLIB = $(XMPLIB)
+   DEBUGMISCLIB = $(MISCLIB)
    DEBUGXOPLIB = $(XOPLIB)
 #endif
 
 #define ProfileLibWc  MakeProfileLibs
 #define ProfileLibXp  MakeProfileLibs
 #define ProfileLibXmp MakeProfileLibs
+#define ProfileLibMisc MakeProfileLibs
 #define ProfileLibXop MakeProfileLibs
 
        SOWCREV = 2.7
@@ -348,6 +367,7 @@ EXTRA_INCLUDES = -I$(WCTOPDIR)
 #define SharedLibWc  HasSharedLibraries
 #define SharedLibXp  HasSharedLibraries
 #define SharedLibXmp HasSharedLibraries
+#define SharedLibMisc HasSharedLibraries
 #define SharedLibXop HasSharedLibraries
 
 #if XRelease < 50
@@ -366,3 +386,8 @@ EXTRA_INCLUDES = -I$(WCTOPDIR)
     LINTFLAGS = $(LINTOPTS) -DLINT $(ALLDEFINES)
 #endif
 
+#ifdef LinuxArchitecture
+/* missing in XFree86 imake setup */
+#define _SharedLibMkdir()
+#define _SharedCleanDir()
+#endif

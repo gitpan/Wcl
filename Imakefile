@@ -21,9 +21,9 @@ XCOMM ##########################################################################
 
 #if HaveMotifWidgetSet
 #if HaveMotifHacks
-     WcMOTIF = Xmp Mri Xmx Xri
+     WcMOTIF = Xmp Mri Xmx Xri Misc
 #else
-     WcMOTIF = Xmp Mri
+     WcMOTIF = Xmp Mri Misc
 #endif
 #endif
 

@@ -1,0 +1,30 @@
+#ifndef WcTopDir
+#define WcTopDir ..
+#endif
+
+#include "../Wc.tmpl"
+
+XCOMM ##########################################################################
+XCOMM # SCCS_data: %Z% %M%	%I% %E% %U%
+XCOMM #
+XCOMM # Misc Public Library - Misc/Imakefile
+XCOMM #
+#define DoNormalLib NormalLibMisc
+#define DoSharedLib SharedLibMisc
+#define DoDebugLib DebugLibMisc
+#define DoProfileLib ProfileLibMisc
+
+#if XRelease >= 50
+#include <Library.tmpl>
+#endif
+
+#define LibraryName Misc
+#define LibraryOptions MiscLibraryOptions
+
+HEADERS = ListTree.h ListTreeP.h Misc.h
+   SRCS = ListTree.c MiscRegAll.c
+   OBJS = ListTree.o MiscRegAll.o
+
+#include "../WcLib.tmpl"
+
+InstallManPage(Misc,$(LIBMANDIR))

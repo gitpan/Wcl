@@ -102,7 +102,7 @@ void XmpRegisterMotif ( app )
  RCO( "XmCreateFormDialog",		XmCreateFormDialog		);
  RCO( "XmCreateFrame",			XmCreateFrame			);
  RCO( "XmCreateInformationDialog",	XmCreateInformationDialog	);
-#if defined(XmREVISION) && XmREVISION >= 2
+#if (defined(XmVERSION) && XmVERSION > 1) || (defined(XmREVISION) && XmREVISION >= 2)
  RCO( "XmCreateTemplateDialog",		XmCreateTemplateDialog		);
 #endif
  RCO( "XmCreateLabel",			XmCreateLabel			);
@@ -143,6 +143,29 @@ void XmpRegisterMotif ( app )
  RCO( "XmCreateToggleButtonGadget",	XmCreateToggleButtonGadget	);
  RCO( "XmCreateWarningDialog",		XmCreateWarningDialog		);
  RCO( "XmCreateWorkingDialog",		XmCreateWorkingDialog		);
+#if (defined(XmVERSION) && XmVERSION > 1)
+ /* Motif 2.0 */
+ RCO( "XmCreateComboBox",			XmCreateComboBox			);
+ RCO( "XmCreateCommandDialog",		XmCreateCommandDialog		);
+ RCO( "XmCreateContainer",			XmCreateContainer			);
+ RCO( "XmCreateCSText",				XmCreateCSText				);
+ RCO( "XmCreateDragIcon",			XmCreateDragIcon			);
+ RCO( "XmCreateDropDownComboBox",	XmCreateDropDownComboBox	);
+ RCO( "XmCreateDropDownList",		XmCreateDropDownList		);
+ RCO( "XmCreateGrabShell",			XmCreateGrabShell			);
+ RCO( "XmCreateIconGadget",			XmCreateIconGadget			);
+ RCO( "XmCreateIconHeader",			XmCreateIconHeader			);
+ RCO( "XmCreateNotebook",			XmCreateNotebook			);
+ RCO( "XmCreateScrolledCSText",		XmCreateScrolledCSText		);
+ RCO( "XmCreateSimpleCheckBox",		XmCreateSimpleCheckBox		);
+ RCO( "XmCreateSimpleMenuBar",		XmCreateSimpleMenuBar		);
+ RCO( "XmCreateSimpleOptionMenu",	XmCreateSimpleOptionMenu	);
+ RCO( "XmCreateSimplePopupMenu",	XmCreateSimplePopupMenu		);
+ RCO( "XmCreateSimplePulldownMenu",	XmCreateSimplePulldownMenu	);
+ RCO( "XmCreateSimpleRadioBox",		XmCreateSimpleRadioBox		);
+ RCO( "XmCreateSpinBox",			XmCreateSpinBox				);
+ RCO( "XmCreateTemplateDialog",		XmCreateTemplateDialog		);
+#endif
 
 /* -- register Motif widget classes */
  RCP("xmArrowButtonWidgetClass",	xmArrowButtonWidgetClass	);
@@ -217,4 +240,32 @@ void XmpRegisterMotif ( app )
  RCP("XmToggleButton",			xmToggleButtonWidgetClass	);
  RCP("xmToggleButtonGadgetClass",	xmToggleButtonGadgetClass	);
  RCP("XmToggleButtonGadget",		xmToggleButtonGadgetClass	);
+#if (defined(XmVERSION) && XmVERSION > 1)
+ /* Motif 2.0 */
+#if 0
+ RCP("xmClipWindowWidgetClass",		xmClipWindowWidgetClass		);
+ RCP("XmClipWindow",				xmClipWindowWidgetClass		);
+#endif
+ RCP("xmComboBoxWidgetClass",		xmComboBoxWidgetClass		);
+ RCP("XmComboBox",					xmComboBoxWidgetClass		);
+ RCP("xmContainerWidgetClass",		xmContainerWidgetClass		);
+ RCP("XmContainer",					xmContainerWidgetClass		);
+ RCP("xmCSTextWidgetClass",			xmCSTextWidgetClass			);
+ RCP("XmCSText",					xmCSTextWidgetClass			);
+ RCP("xmDragOverShellWidgetClass",	xmDragOverShellWidgetClass	);
+ RCP("XmDragOverShell",				xmDragOverShellWidgetClass	);
+ RCP("xmGrabShellWidgetClass",		xmGrabShellWidgetClass		);
+ RCP("XmGrabShell",					xmGrabShellWidgetClass		);
+ RCP("xmIconGadgetClass",			xmIconGadgetClass			);
+ RCP("XmIconGadget",				xmIconGadgetClass			);
+ RCP("xmNotebookWidgetClass",		xmNotebookWidgetClass		);
+ RCP("XmNotebook",					xmNotebookWidgetClass		);
+ RCP("xmSpinBoxWidgetClass",		xmSpinBoxWidgetClass		);
+ RCP("XmSpinBox",					xmSpinBoxWidgetClass		);
+ RCP("xmTearOffButtonWidgetClass",	xmTearOffButtonWidgetClass	);
+ RCP("XmTearOffButton",				xmTearOffButtonWidgetClass	);
+#if 0
+ RCP("XmVendorShellWidgetClass",	XmVendorShellWidgetClass	);
+#endif
+#endif
 }

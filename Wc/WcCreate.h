@@ -230,6 +230,26 @@ extern char* XtName _(( Widget ));	/* from ./XtName.c if not in libXt */
 */
 typedef Widget (*WcWidgetConstructor) _((Widget,char*,ArgList,Cardinal));
 
+/* -- Function pointer type used in overriding the default behavior
+ * for resource file loading.
+ */
+typedef XrmDatabase (*WcDatabaseFunction) _((char *filename));
+
+/* -- Use this function to override the default behavior for resource
+ * file loading.  Pass it a function pointer of the appropriate type
+ * (defined just above), pointing to the function that you have
+ * written to load resource files.  When Wcl needs to load a resource
+ * file, it will call your function, passing it the name of the file
+ * to be loaded.  Your function should return an XrmDatabase.
+ *
+ * Wcl uses the XrmGetFileDatabase() function if you do not set your
+ * own behavior.  Note that Wcl just wants a resource database back,
+ * it does not care whether you read a file to get it.
+ */
+extern WcDatabaseFunction WcSetDatabaseFunction _((
+		WcDatabaseFunction func /* pointer to function to fetch resources */
+));
+
 /*====================================================================
  * Widget class, constructor, and callback proc registration routines:
  * Registrations are kept separate for each application context.
